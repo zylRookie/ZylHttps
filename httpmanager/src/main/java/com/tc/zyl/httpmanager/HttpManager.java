@@ -5,6 +5,8 @@ import android.os.Looper;
 import android.support.v4.util.ArrayMap;
 
 import com.google.gson.Gson;
+import com.zyl.zlogger.Level;
+import com.zyl.zlogger.LoggingInterceptor;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +25,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.internal.platform.Platform;
 
 
 /**
@@ -46,7 +49,15 @@ public final class HttpManager {
         mHandler = new Handler(Looper.getMainLooper());
         gson = new Gson();
         mOkHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new LoggerInterceptor())
+                .addInterceptor(new LoggingInterceptor
+                        .Builder()//构建者模式
+                        .loggable(true) //是否开启日志打印
+                        .setLevel(Level.BODY) //打印的等级
+                        .log(Platform.INFO) // 打印类型
+                        .request("Request") // request的Tag
+                        .response("Response")// Response的Tag
+                        .addHeader("version", BuildConfig.VERSION_NAME)//打印版本
+                        .build())
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
