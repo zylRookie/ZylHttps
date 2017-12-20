@@ -5,18 +5,21 @@
 在根目录上build加上
 
 allprojects {
-  repositories {
-    ...
-    maven { url 'https://www.jitpack.io' }
+    repositories {
+        ...
+        maven {
+            url "https://jitpack.io"
+        }
     }
 }
   
 在app项目中build加上
-dependencies {
-  compile 'com.github.zylRookie:ZylHttps:1.0.2'
-}
+  dependencies {
+        compile 'com.github.zylRookie:ZylHttps:1.0.2'
+    }
 
-HttpManager.get().url(url).build().execute(new HttpManager.ResponseCallback<Object>() {
+ HttpManager.get().url(url)
+                .build().execute(new HttpManager . ResponseCallback < Object >() {
             @Override
             public void onError() {
 
