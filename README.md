@@ -17,17 +17,18 @@
     }
   
  ### 3、在项目中使用：
+  //object 是你使用的实体类Bean（换成你自己的）
+     
+      HttpManager.get().url(url)
+                 .build().execute(new HttpManager
+                 .ResponseCallback<Object>() {
+               @Override
+               public void onError() {
 
-     //object 是你使用的实体类Bean（换成你自己的）
-     HttpManager.get().url(url)
-                .build().execute(new HttpManager.ResponseCallback<Object>() {
-            @Override
-            public void onError() {
+              }
 
-            }
+              @Override
+              public void onSuccess(Object o) {
 
-            @Override
-            public void onSuccess(Object o) {
-
-            }
-        });
+             }
+         });
